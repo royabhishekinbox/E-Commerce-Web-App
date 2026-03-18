@@ -1,0 +1,93 @@
+<div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-10">
+
+  <!-- Shipping Form -->
+  <div class="bg-white p-6 rounded-xl shadow">
+
+    <h2 class="text-2xl font-semibold mb-6">
+      Shipping Details
+    </h2>
+
+    <div class="space-y-4">
+
+      <input type="text" placeholder="Full Name"
+        [(ngModel)]="order.name"
+        class="w-full border p-3 rounded-lg">
+
+      <input type="email" placeholder="Email"
+        [(ngModel)]="order.email"
+        class="w-full border p-3 rounded-lg">
+
+      <input type="text" placeholder="Phone"
+        [(ngModel)]="order.phone"
+        class="w-full border p-3 rounded-lg">
+
+      <textarea placeholder="Address"
+        [(ngModel)]="order.address"
+        class="w-full border p-3 rounded-lg"></textarea>
+
+      <input type="text" placeholder="City"
+        [(ngModel)]="order.city"
+        class="w-full border p-3 rounded-lg">
+
+      <input type="text" placeholder="State"
+        [(ngModel)]="order.state"
+        class="w-full border p-3 rounded-lg">
+
+      <input type="text" placeholder="Zip Code"
+        [(ngModel)]="order.zip"
+        class="w-full border p-3 rounded-lg">
+
+      <select
+        [(ngModel)]="order.payment"
+        class="w-full border p-3 rounded-lg">
+
+        <option value="cod">Cash on Delivery</option>
+        <option value="upi">UPI</option>
+        <option value="card">Card</option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+  <!-- Order Summary -->
+  <div class="bg-white p-6 rounded-xl shadow">
+
+    <h2 class="text-2xl font-semibold mb-6">
+      Order Summary
+    </h2>
+
+    <div *ngFor="let item of cartItems()" class="flex justify-between mb-3">
+
+      <span>
+        {{ item.name }} x{{ item.quantity }}
+      </span>
+
+      <span>
+        {{ item.price * item.quantity | currency:'INR' }}
+      </span>
+
+    </div>
+
+    <div class="border-t pt-4 mt-4 flex justify-between font-semibold text-lg">
+
+      <span>Total</span>
+
+      <span>
+        {{ totalPrice() | currency:'INR' }}
+      </span>
+
+    </div>
+
+    <button
+      (click)="placeOrder()"
+      class="mt-6 w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition">
+
+      Place Order
+
+    </button>
+
+  </div>
+
+</div>

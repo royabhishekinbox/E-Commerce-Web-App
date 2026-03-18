@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Headphones",
+    "slug": "wireless-headphones",
+    "description": "High-quality noise-canceling headphones.",
+    "price": 199,
+    "category": "Speaker",
+    "imageUrl": "https://m.media-amazon.com/images/I/61CGHv6kmWL.jpg",
+    "stockQuantity": 15,
+    "rating": 4.5
+  },
+  {
+    "id": 2,
+    "name": "Smart Watch",
+    "slug": "smart-watch",
+    "description": "Track your fitness and notifications.",
+    "price": 299,
+    "category": "Wearables",
+    "imageUrl": "https://cdn.thewirecutter.com/wp-content/media/2025/10/BEST-SMARTWATCH-ANDROID-PHONES-04017.jpg",
+    "stockQuantity": 10,
+    "rating": 4.2
+  },
+  {
+    "id": 3,
+    "name": "I Phone 17",
+    "slug": "iphone-17",
+    "description": "High-quality apple device with 128GB storage.",
+    "price": 117599,
+    "category": "Mobile",
+    "imageUrl": "https://cdn.mos.cms.futurecdn.net/gWtK9fMmfzZCrmrk9LBZtH-1600-80.jpg",
+    "stockQuantity": 11,
+    "rating": 4.8
+  },
+  {
+    "id": 4,
+    "name": "Laptop",
+    "slug": "laptop",
+    "description": "High-quality dell device.",
+    "price": 40599,
+    "category": "Laptop",
+    "imageUrl": "https://assets.thehansindia.com/h-upload/2023/04/26/1348625-dell.webp",
+    "stockQuantity": 19,
+    "rating": 4.8
+  },
+  {
+    "id": 5,
+    "name": "Samsung S24 Ultra",
+    "slug": "samsung-galaxy",
+    "description": "High-quality samsung device.",
+    "price": 117599,
+    "category": "Mobile",
+    "imageUrl": "https://www.triveniworld.com/cdn/shop/files/samsung-galaxy-s24-ultra-5g-ai-smartphone-titanium-violet.jpg",
+    "stockQuantity": 11,
+    "rating": 4.8
+  }
+]

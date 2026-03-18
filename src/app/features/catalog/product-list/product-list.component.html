@@ -1,0 +1,164 @@
+<section class="max-w-7xl mx-auto px-6 py-12">
+
+  <!-- Page Title -->
+  <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-10">
+    Browse Products
+  </h2>
+
+  <!-- Premium Filters -->
+  <div class="bg-white border border-gray-200 rounded-2xl shadow-lg p-6 mb-12">
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <!-- Search -->
+      <div class="flex flex-col">
+        <label class="text-sm font-semibold text-gray-600 mb-2">
+          Search Product
+        </label>
+
+        <input
+          type="text"
+          placeholder="Search products..."
+          class="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          (input)="searchTerm.set($any($event.target).value)">
+      </div>
+
+      <!-- Category Filter -->
+      <div class="flex flex-col">
+        <label class="text-sm font-semibold text-gray-600 mb-2">
+          Category
+        </label>
+
+        <select
+          class="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          (change)="selectedCategory.set($any($event.target).value)">
+
+          <option value="">All Categories</option>
+
+          @for (category of categories(); track category) {
+            <option [value]="category">{{ category }}</option>
+          }
+
+        </select>
+      </div>
+
+      <!-- Price Filter -->
+      <div class="flex flex-col">
+        <label class="text-sm font-semibold text-gray-600 mb-2">
+          Price Range
+        </label>
+
+        <select
+          class="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          (change)="maxPrice.set($any($event.target).value ? +$any($event.target).value : null)">
+
+          <option value="">Any Price</option>
+          <option value="200">Under ₹200</option>
+          <option value="500">Under ₹500</option>
+          <option value="1000">Under ₹1000</option>
+          <option value="50000">Under ₹50000</option>
+
+        </select>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Product Grid -->
+  <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
+@for (product of products(); track product.id) {
+
+  <div
+    class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+
+    <!-- Product Image -->
+    <div class="relative overflow-hidden bg-gray-100 aspect-square">
+
+      <img
+        [src]="product.imageUrl"
+        [alt]="product.name"
+        class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+
+      <!-- Stock Badge -->
+      <div
+        class="absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full"
+        [ngClass]="product.stockQuantity > 0 
+          ? 'bg-green-100 text-green-700' 
+          : 'bg-red-100 text-red-700'">
+
+        {{ product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}
+
+      </div>
+
+    </div>
+
+    <!-- Product Content -->
+    <div class="p-5">
+
+      <!-- Category -->
+      <p class="text-xs font-semibold tracking-wide text-indigo-600 uppercase mb-1">
+        {{ product.category }}
+      </p>
+
+      <!-- Product Name -->
+      <h3 class="text-lg font-semibold text-gray-900 line-clamp-1">
+        {{ product.name }}
+      </h3>
+
+      <!-- Description -->
+      <p class="text-sm text-gray-500 mt-1 line-clamp-2">
+        {{ product.description }}
+      </p>
+
+      <!-- Stock -->
+      <p class="text-sm text-gray-500 mt-1">
+        Available: {{ product.stockQuantity }}
+      </p>
+
+      <!-- Price -->
+      <p class="text-xl font-bold text-gray-900 mt-3">
+        {{ product.price | currency:'INR' }}
+      </p>
+
+      <!-- Buttons -->
+      <div class="flex gap-2 mt-4">
+
+        <!-- Add to Cart -->
+        <button
+          (click)="addToCart(product)"
+          class="flex-1 text-sm px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition">
+
+          Add to Cart
+
+        </button>
+
+        <!-- View Details -->
+        <a
+          [routerLink]="['/product', product.id]"
+          class="flex-1 text-center text-sm px-4 py-2 rounded-lg bg-gray-900 text-white hover:bg-black transition">
+
+          Details
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+} @empty {
+
+  <div class="col-span-full text-center py-20">
+    <p class="text-gray-400 text-lg">
+      No products match your search
+    </p>
+  </div>
+
+}
+
+  </div>
+
+</section>
