@@ -6,31 +6,72 @@
       Login
     </h2>
 
-    <form (ngSubmit)="login()" class="space-y-4">
+    <form #form="ngForm" (ngSubmit)="login()" class="space-y-4">
 
-      <input
-        type="email"
-        placeholder="Email"
-        [(ngModel)]="email"
-        name="email"
-        required
-        class="w-full border p-3 rounded">
+      <!-- Email -->
+      <div>
+        <input
+          type="email"
+          placeholder="Email"
+          [(ngModel)]="email"
+          name="email"
+          required
+          email
+          #emailRef="ngModel"
+          class="w-full border p-3 rounded focus:ring-2 focus:ring-indigo-500">
 
-      <input
-        type="password"
-        placeholder="Password"
-        [(ngModel)]="password"
-        name="password"
-        required
-        class="w-full border p-3 rounded">
+        <!-- Email Error -->
+        <p class="text-red-500 text-sm mt-1"
+           *ngIf="emailRef.touched && emailRef.invalid">
 
+          <span *ngIf="emailRef.errors?.['required']">
+            Email is required
+          </span>
+
+          <span *ngIf="emailRef.errors?.['email']">
+            Enter a valid email
+          </span>
+
+        </p>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <input
+          type="password"
+          placeholder="Password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          minlength="6"
+          #passwordRef="ngModel"
+          class="w-full border p-3 rounded focus:ring-2 focus:ring-indigo-500">
+
+        <!-- Password Error -->
+        <p class="text-red-500 text-sm mt-1"
+           *ngIf="passwordRef.touched && passwordRef.invalid">
+
+          <span *ngIf="passwordRef.errors?.['required']">
+            Password is required
+          </span>
+
+          <span *ngIf="passwordRef.errors?.['minlength']">
+            Password must be at least 6 characters
+          </span>
+
+        </p>
+      </div>
+
+      <!-- Auth Error -->
       <p class="text-red-500 text-sm" *ngIf="error">
         {{ error }}
       </p>
 
+      <!-- Button -->
       <button
         type="submit"
-        class="w-full bg-black text-white py-3 rounded hover:bg-gray-800">
+        [disabled]="form.invalid"
+        class="w-full bg-black text-white py-3 rounded hover:bg-gray-800 disabled:bg-gray-400">
 
         Login
 

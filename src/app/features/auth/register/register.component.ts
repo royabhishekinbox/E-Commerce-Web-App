@@ -15,6 +15,7 @@ export class RegisterComponent {
   name = '';
   email = '';
   password = '';
+  error = '';
 
   constructor(
     private auth: AuthService,
@@ -22,6 +23,24 @@ export class RegisterComponent {
   ) {}
 
   register() {
+
+    //  Name validation
+    if (!this.name.trim()) {
+      this.error = 'Full name is required';
+      return;
+    }
+
+    //  Email validation
+    if (!this.email.includes('@')) {
+      this.error = 'Enter a valid email';
+      return;
+    }
+
+    //  Password validation
+    if (this.password.length < 6) {
+      this.error = 'Password must be at least 6 characters';
+      return;
+    }
 
     const user = {
       name: this.name,
@@ -31,6 +50,7 @@ export class RegisterComponent {
 
     this.auth.register(user);
 
+    this.error = '';
     alert('Registration successful');
 
     this.router.navigate(['/login']);

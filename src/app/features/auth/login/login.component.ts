@@ -23,6 +23,8 @@ export class LoginComponent {
 
   login() {
 
+    this.error = ''; // reset error
+
     const success = this.auth.login(this.email, this.password);
 
     if (success) {
@@ -32,5 +34,4 @@ export class LoginComponent {
     }
 
   }
-
 }
