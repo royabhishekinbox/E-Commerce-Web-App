@@ -38,11 +38,11 @@
       <!-- Quantity -->
       <div class="flex items-center justify-center gap-4">
 
-        <button
-          (click)="increase(item.productId)"
+       <button
+          (click)="decrease(item.productId)"
           class="w-8 h-8 bg-gray-200 rounded hover:bg-gray-300">
 
-          +
+          -
 
         </button>
 
@@ -51,10 +51,10 @@
         </span>
 
         <button
-          (click)="decrease(item.productId)"
+          (click)="increase(item.productId)"
           class="w-8 h-8 bg-gray-200 rounded hover:bg-gray-300">
 
-          -
+          +
 
         </button>
 
