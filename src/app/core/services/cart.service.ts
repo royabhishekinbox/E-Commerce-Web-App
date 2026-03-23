@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, effect } from '@angular/core';
 import { CartItem } from '../../shared/models/cart-item.model';
 import { Product } from '../../shared/models/product';
 
@@ -7,9 +7,12 @@ import { Product } from '../../shared/models/product';
 })
 export class CartService {
 
-  private _cartItems = signal<CartItem[]>([]);
+  private STORAGE_KEY = 'cart_items';
 
-  // readonly cart
+  // Load initial cart from localStorage
+  private _cartItems = signal<CartItem[]>(this.loadCart());
+
+  // readonly cart (used in your component)
   cartItems = this._cartItems.asReadonly();
 
   // total items
@@ -25,7 +28,29 @@ export class CartService {
     )
   );
 
-  // add product to cart
+  constructor() {
+    //  Auto-save whenever cart changes
+    effect(() => {
+      this.saveCart(this._cartItems());
+    });
+  }
+
+  // 🔥 Load from localStorage
+  private loadCart(): CartItem[] {
+    if (typeof window === 'undefined') return [];
+
+    const data = localStorage.getItem(this.STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+  }
+
+  // 🔥 Save to localStorage
+  private saveCart(items: CartItem[]) {
+    if (typeof window === 'undefined') return;
+
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(items));
+  }
+
+  // add product
   addToCart(product: Product) {
 
     const items = this._cartItems();
@@ -34,13 +59,11 @@ export class CartService {
       item => item.productId === product.id
     );
 
-    // prevent adding more than stock
     if (existingItem && existingItem.quantity >= product.stockQuantity) {
       return;
     }
 
     if (existingItem) {
-
       this._cartItems.update(items =>
         items.map(item =>
           item.productId === product.id
@@ -48,9 +71,7 @@ export class CartService {
             : item
         )
       );
-
     } else {
-
       const newItem: CartItem = {
         productId: product.id,
         name: product.name,
@@ -61,10 +82,9 @@ export class CartService {
 
       this._cartItems.update(items => [...items, newItem]);
     }
-
   }
 
-  // remove item 
+  // remove item
   removeItem(productId: number) {
     this._cartItems.update(items =>
       items.filter(item => item.productId !== productId)
@@ -91,6 +111,8 @@ export class CartService {
   // clear cart
   clearCart() {
     this._cartItems.set([]);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(this.STORAGE_KEY);
+    }
   }
-
 }
