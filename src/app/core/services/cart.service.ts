@@ -29,13 +29,13 @@ export class CartService {
   );
 
   constructor() {
-    //  Auto-save whenever cart changes
+    // Auto-save whenever cart changes
     effect(() => {
       this.saveCart(this._cartItems());
     });
   }
 
-  // 🔥 Load from localStorage
+  // Load from the localStorage 
   private loadCart(): CartItem[] {
     if (typeof window === 'undefined') return [];
 
@@ -43,7 +43,7 @@ export class CartService {
     return data ? JSON.parse(data) : [];
   }
 
-  // 🔥 Save to localStorage
+  //  Save to localStorage
   private saveCart(items: CartItem[]) {
     if (typeof window === 'undefined') return;
 
