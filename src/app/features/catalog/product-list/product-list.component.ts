@@ -25,6 +25,7 @@ export class ProductListComponent {
   searchTerm = this.productService.searchTerm;
   selectedCategory = this.productService.selectedCategory;
   maxPrice = this.productService.maxPrice;
+  
   //add to cart
   addToCart(product: Product) {
   this.cartService.addToCart(product);
